@@ -50,7 +50,7 @@ I'm following a structured learning path covering:
 ## 📚 Resources
 
 Here are some excellent resources I'm using:
-
+- [Youtube Playlist for php lessons - By Gio](https://www.youtube.com/playlist?list=PLr3d3QYzkw2xabQRUpcZ_IBk9W50M9pe-)
 - [PHP Official Documentation](https://www.php.net/docs.php)
 - [Laravel Documentation](https://laravel.com/docs)
 - [PHP The Right Way](https://phptherightway.com/)

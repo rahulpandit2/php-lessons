@@ -32,6 +32,11 @@ ssh -T git@github.com
 
 ## commit your changes and push to github
 ```bash
+# Add the origin url to your github repository
+git remote add origin
+# may need this for the first time you push your changes
+git push --set-upstream origin main
+# Push your changes to github
 git push -u origin main
 # If you get an error, try this
 git push -u origin main --force

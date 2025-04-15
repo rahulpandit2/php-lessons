@@ -145,25 +145,44 @@
 
         <div class="lesson-list">
             <?php
+            function scanDirectory($dir, $basePath = '') {
+                $items = scandir($dir);
+                $results = [];
+
+                foreach ($items as $item) {
+                    if ($item != '.' && $item != '..') {
+                        $fullPath = $dir . $item;
+                        if (is_dir($fullPath)) {
+                            $subResults = scanDirectory($fullPath . '/', $basePath . $item . '/');
+                            $results = array_merge($results, $subResults);
+                        } else if (pathinfo($item, PATHINFO_EXTENSION) == 'php') {
+                            $results[] = [
+                                'path' => $basePath . $item,
+                                'fullPath' => $fullPath
+                            ];
+                        }
+                    }
+                }
+                return $results;
+            }
+
             $directory = __DIR__ . "/Chapters/";
-            $files = scandir($directory);
+            $files = scanDirectory($directory);
 
-            foreach ($files as $file) {
-                if ($file != '.' && $file != '..' && pathinfo($file, PATHINFO_EXTENSION) == 'php') {
-                    $fileName = pathinfo($file, PATHINFO_FILENAME);
-                    $formattedName = ucwords(str_replace(['-', '_'], ' ', $fileName));
-
+            if (empty($files)) {
+                echo "<p style='text-align:center; color:#777;'>No PHP files found in the directory.</p>";
+            } else {
+                foreach ($files as $file) {
+                    $displayPath = str_replace('/', ' / ', $file['path']);
+                    $formattedName = ucwords(str_replace(['-', '_'], ' ', $displayPath));
+                    
                     echo "<div class='lesson-item'>
-                            <a href='Chapters/{$file}' class='lesson-link' target='_blank'>
+                            <a href='Chapters/{$file['path']}' class='lesson-link' target='_blank'>
                                 <i class='fas fa-file-code file-icon'></i>
                                 {$formattedName}
                             </a>
                           </div>";
                 }
-            }
-
-            if (count($files) <= 2) {
-                echo "<p style='text-align:center; color:#777;'>No chapter files found in the directory.</p>";
             }
             ?>
         </div>

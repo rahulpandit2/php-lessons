@@ -1,3 +1,4 @@
+<!-- This page was quickly generated with Trae AI Code editor -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
